@@ -56,4 +56,22 @@ public class JobApplicationService {
 
         jobApplicationRepository.delete(jobApplication);
     }
+
+    public JobApplication updateApplication(Long id, UpdateJobApplicationRequest request) {
+        JobApplication jobApplication = jobApplicationRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Job application not found"));
+
+        jobApplication.setCompany(request.getCompany());
+        jobApplication.setPosition(request.getPosition());
+        jobApplication.setLocation(request.getLocation());
+        jobApplication.setJobUrl(request.getJobUrl());
+        jobApplication.setSalaryRange(request.getSalaryRange());
+        jobApplication.setStatus(request.getStatus());
+        jobApplication.setAppliedDate(request.getAppliedDate());
+        jobApplication.setReminderDate(request.getReminderDate());
+        jobApplication.setNotes(request.getNotes());
+        jobApplication.setUpdatedAt(LocalDateTime.now());
+
+        return jobApplicationRepository.save(jobApplication);
+    }
 }
