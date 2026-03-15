@@ -1,5 +1,6 @@
 package com.osmanalnaser.job_application_tracker.application;
 
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class JobApplicationController {
     }
 
     @PostMapping
-    public JobApplication createApplication(@RequestBody CreateJobApplicationRequest request) {
+    public JobApplication createApplication(@RequestBody @Valid CreateJobApplicationRequest request) {
         return jobApplicationService.createApplication(request);
     }
 
@@ -36,7 +37,7 @@ public class JobApplicationController {
 
     @PutMapping("/{id}")
     public JobApplication updateApplication(@PathVariable Long id,
-                                            @RequestBody UpdateJobApplicationRequest request) {
+                                            @RequestBody @Valid UpdateJobApplicationRequest request) {
         return jobApplicationService.updateApplication(id, request);
     }
 }
