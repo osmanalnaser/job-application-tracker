@@ -19,8 +19,18 @@ public class JobApplicationController {
         return jobApplicationService.getAllApplications();
     }
 
+    @GetMapping("/{id}")
+    public JobApplication getApplicationById(@PathVariable Long id) {
+        return jobApplicationService.getApplicationById(id);
+    }
+
     @PostMapping
     public JobApplication createApplication(@RequestBody CreateJobApplicationRequest request) {
         return jobApplicationService.createApplication(request);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteApplication(@PathVariable Long id) {
+        jobApplicationService.deleteApplication(id);
     }
 }

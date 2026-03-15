@@ -1,5 +1,6 @@
 package com.osmanalnaser.job_application_tracker.application;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.osmanalnaser.job_application_tracker.user.User;
 import jakarta.persistence.*;
 
@@ -48,6 +49,7 @@ public class JobApplication {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
+    @JsonIgnore
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
