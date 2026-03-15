@@ -1,15 +1,25 @@
 package com.osmanalnaser.job_application_tracker.application;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDate;
 
 public class UpdateJobApplicationRequest {
 
+    @NotBlank
     private String company;
+
+    @NotBlank
     private String position;
+
     private String location;
     private String jobUrl;
     private String salaryRange;
+
+    @NotNull
     private ApplicationStatus status;
+
     private LocalDate appliedDate;
     private LocalDate reminderDate;
     private String notes;
