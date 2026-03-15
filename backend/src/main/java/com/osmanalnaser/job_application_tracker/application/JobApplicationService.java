@@ -86,4 +86,13 @@ public class JobApplicationService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Job application not found"));
     }
 
+    public JobApplicationResponse updateApplicationStatus(Long id, UpdateApplicationStatusRequest request) {
+        JobApplication jobApplication = findJobApplicationById(id);
+        jobApplication.setStatus(request.getStatus());
+        jobApplication.setUpdatedAt(LocalDateTime.now());
+
+        JobApplication updatedJobApplication = jobApplicationRepository.save(jobApplication);
+        return jobApplicationMapper.toResponse(updatedJobApplication);
+    }
+
 }
