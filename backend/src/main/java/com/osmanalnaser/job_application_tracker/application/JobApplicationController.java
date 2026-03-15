@@ -1,6 +1,7 @@
 package com.osmanalnaser.job_application_tracker.application;
 
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,6 +31,7 @@ public class JobApplicationController {
         return jobApplicationService.createApplication(request);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void deleteApplication(@PathVariable Long id) {
         jobApplicationService.deleteApplication(id);
