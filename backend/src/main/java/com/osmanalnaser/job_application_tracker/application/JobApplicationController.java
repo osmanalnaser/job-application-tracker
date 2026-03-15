@@ -33,4 +33,10 @@ public class JobApplicationController {
     public void deleteApplication(@PathVariable Long id) {
         jobApplicationService.deleteApplication(id);
     }
+
+    @PutMapping("/{id}")
+    public JobApplication updateApplication(@PathVariable Long id,
+                                            @RequestBody UpdateJobApplicationRequest request) {
+        return jobApplicationService.updateApplication(id, request);
+    }
 }
