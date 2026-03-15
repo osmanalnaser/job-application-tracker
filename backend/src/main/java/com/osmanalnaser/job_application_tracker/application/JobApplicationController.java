@@ -17,7 +17,11 @@ public class JobApplicationController {
     }
 
     @GetMapping
-    public List<JobApplicationResponse> getAllApplications() {
+    public List<JobApplicationResponse> getAllApplications(@RequestParam(required = false) ApplicationStatus status) {
+        if (status != null) {
+            return jobApplicationService.getApplicationsByStatus(status);
+        }
+
         return jobApplicationService.getAllApplications();
     }
 
