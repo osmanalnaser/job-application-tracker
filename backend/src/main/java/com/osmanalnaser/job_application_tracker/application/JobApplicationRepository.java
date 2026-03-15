@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface JobApplicationRepository extends JpaRepository<JobApplication, Long> {
     List<JobApplication> findAllByOrderByAppliedDateDesc();
+    List<JobApplication> findByStatusOrderByAppliedDateDesc(ApplicationStatus status);
 }
