@@ -95,4 +95,11 @@ public class JobApplicationService {
         return jobApplicationMapper.toResponse(updatedJobApplication);
     }
 
+    public List<JobApplicationResponse> getApplicationsByStatus(ApplicationStatus status) {
+        return jobApplicationRepository.findByStatusOrderByAppliedDateDesc(status)
+                .stream()
+                .map(jobApplicationMapper::toResponse)
+                .collect(Collectors.toList());
+    }
+
 }
