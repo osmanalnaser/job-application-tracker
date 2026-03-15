@@ -54,23 +54,18 @@ public class JobApplicationService {
     }
 
     public JobApplicationResponse getApplicationById(Long id) {
-        JobApplication jobApplication = jobApplicationRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Job application not found"));
-
+        JobApplication jobApplication = findJobApplicationById(id);
         return jobApplicationMapper.toResponse(jobApplication);
     }
 
     public void deleteApplication(Long id) {
-        JobApplication jobApplication = jobApplicationRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Job application not found"));
+        JobApplication jobApplication = findJobApplicationById(id);
 
         jobApplicationRepository.delete(jobApplication);
     }
 
     public JobApplicationResponse updateApplication(Long id, UpdateJobApplicationRequest request) {
-        JobApplication jobApplication = jobApplicationRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Job application not found"));
-
+        JobApplication jobApplication = findJobApplicationById(id);
         jobApplication.setCompany(request.getCompany());
         jobApplication.setPosition(request.getPosition());
         jobApplication.setLocation(request.getLocation());
@@ -84,6 +79,11 @@ public class JobApplicationService {
 
         JobApplication updatedJobApplication = jobApplicationRepository.save(jobApplication);
         return jobApplicationMapper.toResponse(updatedJobApplication);
+    }
+
+    private JobApplication findJobApplicationById(Long id) {
+        return jobApplicationRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Job application not found"));
     }
 
 }
