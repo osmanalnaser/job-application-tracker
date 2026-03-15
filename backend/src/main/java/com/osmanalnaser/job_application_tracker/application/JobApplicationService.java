@@ -2,7 +2,9 @@ package com.osmanalnaser.job_application_tracker.application;
 
 import com.osmanalnaser.job_application_tracker.user.User;
 import com.osmanalnaser.job_application_tracker.user.UserRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -45,12 +47,12 @@ public class JobApplicationService {
 
     public JobApplication getApplicationById(Long id) {
         return jobApplicationRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Job application not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Job application not found"));
     }
 
     public void deleteApplication(Long id) {
         JobApplication jobApplication = jobApplicationRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Job application not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Job application not found"));
 
         jobApplicationRepository.delete(jobApplication);
     }
