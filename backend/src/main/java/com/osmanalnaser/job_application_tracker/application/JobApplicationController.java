@@ -40,4 +40,10 @@ public class JobApplicationController {
                                             @RequestBody @Valid UpdateJobApplicationRequest request) {
         return jobApplicationService.updateApplication(id, request);
     }
+
+    @PatchMapping("/{id}/status")
+    public JobApplicationResponse updateApplicationStatus(@PathVariable Long id,
+                                                          @Valid @RequestBody UpdateApplicationStatusRequest request) {
+        return jobApplicationService.updateApplicationStatus(id, request);
+    }
 }
