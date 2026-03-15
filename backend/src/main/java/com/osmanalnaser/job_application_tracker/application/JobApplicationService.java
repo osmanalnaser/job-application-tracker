@@ -42,4 +42,9 @@ public class JobApplicationService {
 
         return jobApplicationRepository.save(jobApplication);
     }
+
+    public JobApplication getApplicationById(Long id) {
+        return jobApplicationRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Job application not found"));
+    }
 }
