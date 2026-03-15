@@ -16,17 +16,17 @@ public class JobApplicationController {
     }
 
     @GetMapping
-    public List<JobApplication> getAllApplications() {
+    public List<JobApplicationResponse> getAllApplications() {
         return jobApplicationService.getAllApplications();
     }
 
     @GetMapping("/{id}")
-    public JobApplication getApplicationById(@PathVariable Long id) {
+    public JobApplicationResponse getApplicationById(@PathVariable Long id) {
         return jobApplicationService.getApplicationById(id);
     }
 
     @PostMapping
-    public JobApplication createApplication(@RequestBody @Valid CreateJobApplicationRequest request) {
+    public JobApplicationResponse createApplication(@RequestBody @Valid CreateJobApplicationRequest request) {
         return jobApplicationService.createApplication(request);
     }
 
@@ -36,7 +36,7 @@ public class JobApplicationController {
     }
 
     @PutMapping("/{id}")
-    public JobApplication updateApplication(@PathVariable Long id,
+    public JobApplicationResponse updateApplication(@PathVariable Long id,
                                             @RequestBody @Valid UpdateJobApplicationRequest request) {
         return jobApplicationService.updateApplication(id, request);
     }

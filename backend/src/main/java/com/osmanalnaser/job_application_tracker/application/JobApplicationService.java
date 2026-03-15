@@ -8,6 +8,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class JobApplicationService {
@@ -20,11 +21,15 @@ public class JobApplicationService {
         this.userRepository = userRepository;
     }
 
-    public List<JobApplication> getAllApplications() {
-        return jobApplicationRepository.findAll();
+    public List<JobApplicationResponse> getAllApplications() {
+
+        return jobApplicationRepository.findAll()
+                .stream()
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
     }
 
-    public JobApplication createApplication(CreateJobApplicationRequest request) {
+    public JobApplicationResponse createApplication(CreateJobApplicationRequest request) {
         User user = userRepository.findById(1L)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -42,12 +47,15 @@ public class JobApplicationService {
         jobApplication.setUpdatedAt(LocalDateTime.now());
         jobApplication.setUser(user);
 
-        return jobApplicationRepository.save(jobApplication);
+        JobApplication savedJobApplication = jobApplicationRepository.save(jobApplication);
+        return mapToResponse(savedJobApplication);
     }
 
-    public JobApplication getApplicationById(Long id) {
-        return jobApplicationRepository.findById(id)
+    public JobApplicationResponse getApplicationById(Long id) {
+        JobApplication jobApplication = jobApplicationRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Job application not found"));
+
+        return mapToResponse(jobApplication);
     }
 
     public void deleteApplication(Long id) {
@@ -57,7 +65,7 @@ public class JobApplicationService {
         jobApplicationRepository.delete(jobApplication);
     }
 
-    public JobApplication updateApplication(Long id, UpdateJobApplicationRequest request) {
+    public JobApplicationResponse updateApplication(Long id, UpdateJobApplicationRequest request) {
         JobApplication jobApplication = jobApplicationRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Job application not found"));
 
@@ -72,6 +80,24 @@ public class JobApplicationService {
         jobApplication.setNotes(request.getNotes());
         jobApplication.setUpdatedAt(LocalDateTime.now());
 
-        return jobApplicationRepository.save(jobApplication);
+        JobApplication updatedJobApplication = jobApplicationRepository.save(jobApplication);
+        return mapToResponse(updatedJobApplication);
+    }
+
+    private JobApplicationResponse mapToResponse(JobApplication jobApplication) {
+        JobApplicationResponse response = new JobApplicationResponse();
+        response.setId(jobApplication.getId());
+        response.setCompany(jobApplication.getCompany());
+        response.setPosition(jobApplication.getPosition());
+        response.setLocation(jobApplication.getLocation());
+        response.setJobUrl(jobApplication.getJobUrl());
+        response.setSalaryRange(jobApplication.getSalaryRange());
+        response.setStatus(jobApplication.getStatus());
+        response.setAppliedDate(jobApplication.getAppliedDate());
+        response.setReminderDate(jobApplication.getReminderDate());
+        response.setNotes(jobApplication.getNotes());
+        response.setCreatedAt(jobApplication.getCreatedAt());
+        response.setUpdatedAt(jobApplication.getUpdatedAt());
+        return response;
     }
 }
