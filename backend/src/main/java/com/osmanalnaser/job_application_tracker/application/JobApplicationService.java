@@ -47,4 +47,11 @@ public class JobApplicationService {
         return jobApplicationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Job application not found"));
     }
+
+    public void deleteApplication(Long id) {
+        JobApplication jobApplication = jobApplicationRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Job application not found"));
+
+        jobApplicationRepository.delete(jobApplication);
+    }
 }
