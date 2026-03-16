@@ -1,5 +1,6 @@
 package com.osmanalnaser.job_application_tracker.application;
 
+import com.osmanalnaser.job_application_tracker.dashboard.DashboardResponse;
 import com.osmanalnaser.job_application_tracker.user.User;
 import com.osmanalnaser.job_application_tracker.user.UserRepository;
 import org.springframework.http.HttpStatus;
@@ -125,6 +126,24 @@ public class JobApplicationService {
                 .stream()
                 .map(jobApplicationMapper::toResponse)
                 .collect(Collectors.toList());
+    }
+
+    public DashboardResponse getDashboard(String userEmail) {
+
+        DashboardResponse response = new DashboardResponse();
+
+        List<JobApplicationResponse> recentApplications =
+                jobApplicationRepository
+                        .findTop5ByUserEmailOrderByAppliedDateDesc(userEmail)
+                        .stream()
+                        .map(jobApplicationMapper::toResponse)
+                        .toList();
+
+        response.setRecentApplications(recentApplications);
+
+        response.setStats(getApplicationStats());
+
+        return response;
     }
 
 }

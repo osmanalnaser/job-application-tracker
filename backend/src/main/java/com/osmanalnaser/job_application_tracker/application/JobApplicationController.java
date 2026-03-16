@@ -1,5 +1,6 @@
 package com.osmanalnaser.job_application_tracker.application;
 
+import com.osmanalnaser.job_application_tracker.dashboard.DashboardResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -59,5 +60,10 @@ public class JobApplicationController {
                                                           @Valid @RequestBody UpdateApplicationStatusRequest request,
                                                           Authentication authentication) {
         return jobApplicationService.updateApplicationStatus(id, authentication.getName(), request);
+    }
+
+    @GetMapping("/dashboard")
+    public DashboardResponse getDashboard(Authentication authentication) {
+        return jobApplicationService.getDashboard(authentication.getName());
     }
 }

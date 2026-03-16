@@ -12,6 +12,7 @@ public interface JobApplicationRepository extends JpaRepository<JobApplication, 
     List<JobApplication> findByUserEmailOrderByAppliedDateDesc(String email);
     List<JobApplication> findByUserEmailAndStatusOrderByAppliedDateDesc(String email, ApplicationStatus status);
     Optional<JobApplication> findByIdAndUserEmail(Long id, String email);
+    List<JobApplication> findTop5ByUserEmailOrderByAppliedDateDesc(String email);
     long countByStatus(ApplicationStatus status);
 
 }
