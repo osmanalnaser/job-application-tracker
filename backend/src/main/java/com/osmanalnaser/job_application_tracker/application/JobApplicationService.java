@@ -146,4 +146,13 @@ public class JobApplicationService {
         return response;
     }
 
+    public List<JobApplicationResponse> searchApplications(String userEmail, String keyword) {
+
+        return jobApplicationRepository
+                .searchByUserEmailAndKeyword(userEmail, keyword)
+                .stream()
+                .map(jobApplicationMapper::toResponse)
+                .toList();
+    }
+
 }

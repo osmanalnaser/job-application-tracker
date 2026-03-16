@@ -66,4 +66,11 @@ public class JobApplicationController {
     public DashboardResponse getDashboard(Authentication authentication) {
         return jobApplicationService.getDashboard(authentication.getName());
     }
+
+    @GetMapping("/search")
+    public List<JobApplicationResponse> searchApplications(@RequestParam String keyword,
+                                                           Authentication authentication) {
+
+        return jobApplicationService.searchApplications(authentication.getName(), keyword);
+    }
 }

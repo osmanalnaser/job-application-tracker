@@ -1,6 +1,8 @@
 package com.osmanalnaser.job_application_tracker.application;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,5 +17,8 @@ public interface JobApplicationRepository extends JpaRepository<JobApplication, 
     List<JobApplication> findTop5ByUserEmailOrderByAppliedDateDesc(String email);
     long countByStatus(ApplicationStatus status);
     long countByUserEmailAndStatus(String email, ApplicationStatus status);
+    @Query("SELECT j FROM JobApplication j WHERE j.user.email = :email AND (LOWER(j.company) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(j.position) LIKE LOWER(CONCAT('%', :keyword, '%'))) ORDER BY j.appliedDate DESC")
+    List<JobApplication> searchByUserEmailAndKeyword(@Param("email") String email,
+                                                     @Param("keyword") String keyword);
 
 }
