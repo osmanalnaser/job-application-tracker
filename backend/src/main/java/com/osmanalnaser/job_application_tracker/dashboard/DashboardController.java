@@ -14,8 +14,11 @@ public class DashboardController {
         this.jobApplicationService = jobApplicationService;
     }
 
-    @GetMapping("/api/dashboard/stats")
-    public ApplicationStatsResponse getApplicationStats() {
-        return jobApplicationService.getApplicationStats();
+    @GetMapping("/api/dashboard")
+    public DashboardResponse getDashboard() {
+        DashboardResponse response = new DashboardResponse();
+        response.setStats(jobApplicationService.getApplicationStats());
+        response.setRecentApplications(jobApplicationService.getRecentApplications());
+        return response;
     }
 }
