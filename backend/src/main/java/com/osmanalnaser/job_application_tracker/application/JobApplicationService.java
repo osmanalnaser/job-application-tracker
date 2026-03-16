@@ -95,8 +95,8 @@ public class JobApplicationService {
         return jobApplicationMapper.toResponse(updatedJobApplication);
     }
 
-    public List<JobApplicationResponse> getApplicationsByStatus(ApplicationStatus status) {
-        return jobApplicationRepository.findByStatusOrderByAppliedDateDesc(status)
+    public List<JobApplicationResponse> getApplicationsByStatus(String userEmail, ApplicationStatus status) {
+        return jobApplicationRepository.findByUserEmailAndStatusOrderByAppliedDateDesc(userEmail, status)
                 .stream()
                 .map(jobApplicationMapper::toResponse)
                 .collect(Collectors.toList());
