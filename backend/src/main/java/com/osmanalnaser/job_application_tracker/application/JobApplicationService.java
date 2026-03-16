@@ -120,7 +120,7 @@ public class JobApplicationService {
         return stats;
     }
 
-    public List<JobApplicationResponse> getRecentApplications(int limit) {
+    public List<JobApplicationResponse> getRecentApplications() {
         return jobApplicationRepository.findTop5ByOrderByAppliedDateDesc()
                 .stream()
                 .map(jobApplicationMapper::toResponse)
