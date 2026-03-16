@@ -53,19 +53,19 @@ public class JobApplicationService {
         return jobApplicationMapper.toResponse(savedJobApplication);
     }
 
-    public JobApplicationResponse getApplicationById(Long id) {
-        JobApplication jobApplication = findJobApplicationById(id);
+    public JobApplicationResponse getApplicationById(Long id, String userEmail) {
+        JobApplication jobApplication = findJobApplicationById(id, userEmail);
         return jobApplicationMapper.toResponse(jobApplication);
     }
 
-    public void deleteApplication(Long id) {
-        JobApplication jobApplication = findJobApplicationById(id);
+    public void deleteApplication(Long id, String userEmail) {
+        JobApplication jobApplication = findJobApplicationById(id, userEmail);
 
         jobApplicationRepository.delete(jobApplication);
     }
 
-    public JobApplicationResponse updateApplication(Long id, UpdateJobApplicationRequest request) {
-        JobApplication jobApplication = findJobApplicationById(id);
+    public JobApplicationResponse updateApplication(Long id, String userEmail, UpdateJobApplicationRequest request) {
+        JobApplication jobApplication = findJobApplicationById(id, userEmail);
         jobApplication.setCompany(request.getCompany());
         jobApplication.setPosition(request.getPosition());
         jobApplication.setLocation(request.getLocation());
@@ -81,13 +81,13 @@ public class JobApplicationService {
         return jobApplicationMapper.toResponse(updatedJobApplication);
     }
 
-    private JobApplication findJobApplicationById(Long id) {
-        return jobApplicationRepository.findById(id)
+    private JobApplication findJobApplicationById(Long id, String userEmail) {
+        return jobApplicationRepository.findByIdAndUserEmail(id, userEmail)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Job application not found"));
     }
 
-    public JobApplicationResponse updateApplicationStatus(Long id, UpdateApplicationStatusRequest request) {
-        JobApplication jobApplication = findJobApplicationById(id);
+    public JobApplicationResponse updateApplicationStatus(Long id, String userEmail, UpdateApplicationStatusRequest request) {
+        JobApplication jobApplication = findJobApplicationById(id, userEmail);
         jobApplication.setStatus(request.getStatus());
         jobApplication.setUpdatedAt(LocalDateTime.now());
 

@@ -28,8 +28,9 @@ public class JobApplicationController {
     }
 
     @GetMapping("/{id}")
-    public JobApplicationResponse getApplicationById(@PathVariable Long id) {
-        return jobApplicationService.getApplicationById(id);
+    public JobApplicationResponse getApplicationById(@PathVariable Long id,
+                                                     Authentication authentication) {
+        return jobApplicationService.getApplicationById(id, authentication.getName());
     }
 
     @PostMapping
@@ -40,20 +41,23 @@ public class JobApplicationController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public void deleteApplication(@PathVariable Long id) {
+    public void deleteApplication(@PathVariable Long id,
+                                  Authentication authentication) {
 
-        jobApplicationService.deleteApplication(id);
+        jobApplicationService.deleteApplication(id, authentication.getName());
     }
 
     @PutMapping("/{id}")
     public JobApplicationResponse updateApplication(@PathVariable Long id,
-                                            @RequestBody @Valid UpdateJobApplicationRequest request) {
-        return jobApplicationService.updateApplication(id, request);
+                                            @RequestBody @Valid UpdateJobApplicationRequest request,
+                                                    Authentication authentication) {
+        return jobApplicationService.updateApplication(id, authentication.getName(), request);
     }
 
     @PatchMapping("/{id}/status")
     public JobApplicationResponse updateApplicationStatus(@PathVariable Long id,
-                                                          @Valid @RequestBody UpdateApplicationStatusRequest request) {
-        return jobApplicationService.updateApplicationStatus(id, request);
+                                                          @Valid @RequestBody UpdateApplicationStatusRequest request,
+                                                          Authentication authentication) {
+        return jobApplicationService.updateApplicationStatus(id, authentication.getName(), request);
     }
 }
