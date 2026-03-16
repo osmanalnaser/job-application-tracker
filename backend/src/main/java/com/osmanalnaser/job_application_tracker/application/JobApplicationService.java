@@ -121,8 +121,8 @@ public class JobApplicationService {
         return stats;
     }
 
-    public List<JobApplicationResponse> getRecentApplications() {
-        return jobApplicationRepository.findTop5ByOrderByAppliedDateDesc()
+    public List<JobApplicationResponse> getRecentApplications(String userEmail) {
+        return jobApplicationRepository.findTop5ByUserEmailOrderByAppliedDateDesc(userEmail)
                 .stream()
                 .map(jobApplicationMapper::toResponse)
                 .collect(Collectors.toList());

@@ -15,7 +15,7 @@ public class DashboardService {
     public DashboardResponse getDashboard(String userEmail) {
         DashboardResponse response = new DashboardResponse();
         response.setStats(jobApplicationService.getApplicationStats(userEmail));
-        response.setRecentApplications(jobApplicationService.getRecentApplications());
+        response.setRecentApplications(jobApplicationService.getRecentApplications(userEmail));
         return response;
     }
 }
