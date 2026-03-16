@@ -103,13 +103,13 @@ public class JobApplicationService {
                 .collect(Collectors.toList());
     }
 
-    public ApplicationStatsResponse getApplicationStats() {
+    public ApplicationStatsResponse getApplicationStats(String userEmail) {
         ApplicationStatsResponse stats = new ApplicationStatsResponse();
 
-        stats.setApplied(jobApplicationRepository.countByStatus(ApplicationStatus.APPLIED));
-        stats.setInterview(jobApplicationRepository.countByStatus(ApplicationStatus.INTERVIEW));
-        stats.setRejected(jobApplicationRepository.countByStatus(ApplicationStatus.REJECTED));
-        stats.setOffer(jobApplicationRepository.countByStatus(ApplicationStatus.OFFER));
+        stats.setApplied(jobApplicationRepository.countByUserEmailAndStatus(userEmail, ApplicationStatus.APPLIED));
+        stats.setInterview(jobApplicationRepository.countByUserEmailAndStatus(userEmail, ApplicationStatus.INTERVIEW));
+        stats.setRejected(jobApplicationRepository.countByUserEmailAndStatus(userEmail, ApplicationStatus.REJECTED));
+        stats.setOffer(jobApplicationRepository.countByUserEmailAndStatus(userEmail, ApplicationStatus.OFFER));
 
         stats.setTotal(
                 stats.getApplied()
@@ -141,7 +141,7 @@ public class JobApplicationService {
 
         response.setRecentApplications(recentApplications);
 
-        response.setStats(getApplicationStats());
+        response.setStats(getApplicationStats(userEmail));
 
         return response;
     }

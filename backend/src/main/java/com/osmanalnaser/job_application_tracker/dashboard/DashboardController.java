@@ -13,7 +13,7 @@ public class DashboardController {
     }
 
     @GetMapping("/api/dashboard")
-    public DashboardResponse getDashboard() {
-        return dashboardService.getDashboard();
+    public DashboardResponse getDashboard(String userEmail) {
+        return dashboardService.getDashboard(userEmail);
     }
 }

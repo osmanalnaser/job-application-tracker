@@ -12,9 +12,9 @@ public class DashboardService {
         this.jobApplicationService = jobApplicationService;
     }
 
-    public DashboardResponse getDashboard() {
+    public DashboardResponse getDashboard(String userEmail) {
         DashboardResponse response = new DashboardResponse();
-        response.setStats(jobApplicationService.getApplicationStats());
+        response.setStats(jobApplicationService.getApplicationStats(userEmail));
         response.setRecentApplications(jobApplicationService.getRecentApplications());
         return response;
     }
