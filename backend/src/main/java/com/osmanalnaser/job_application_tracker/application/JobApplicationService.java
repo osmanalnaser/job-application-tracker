@@ -102,4 +102,15 @@ public class JobApplicationService {
                 .collect(Collectors.toList());
     }
 
+    public ApplicationStatsResponse getApplicationStats() {
+        ApplicationStatsResponse stats = new ApplicationStatsResponse();
+
+        stats.setApplied(jobApplicationRepository.countByStatus(ApplicationStatus.APPLIED));
+        stats.setInterview(jobApplicationRepository.countByStatus(ApplicationStatus.INTERVIEW));
+        stats.setRejected(jobApplicationRepository.countByStatus(ApplicationStatus.REJECTED));
+        stats.setOffer(jobApplicationRepository.countByStatus(ApplicationStatus.OFFER));
+
+        return stats;
+    }
+
 }
