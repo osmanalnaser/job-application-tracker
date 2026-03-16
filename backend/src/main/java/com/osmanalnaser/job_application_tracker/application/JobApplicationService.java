@@ -31,9 +31,9 @@ public class JobApplicationService {
                 .collect(Collectors.toList());
     }
 
-    public JobApplicationResponse createApplication(CreateJobApplicationRequest request) {
-        User user = userRepository.findById(1L)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+    public JobApplicationResponse createApplication(CreateJobApplicationRequest request, String userEmail) {
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
         JobApplication jobApplication = new JobApplication();
         jobApplication.setCompany(request.getCompany());

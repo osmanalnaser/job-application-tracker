@@ -2,6 +2,7 @@ package com.osmanalnaser.job_application_tracker.application;
 
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,8 +32,9 @@ public class JobApplicationController {
     }
 
     @PostMapping
-    public JobApplicationResponse createApplication(@RequestBody @Valid CreateJobApplicationRequest request) {
-        return jobApplicationService.createApplication(request);
+    public JobApplicationResponse createApplication(@Valid @RequestBody CreateJobApplicationRequest request,
+                                                    Authentication authentication) {
+        return jobApplicationService.createApplication(request, authentication.getName());
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
