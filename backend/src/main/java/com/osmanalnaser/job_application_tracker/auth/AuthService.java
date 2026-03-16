@@ -1,5 +1,6 @@
 package com.osmanalnaser.job_application_tracker.auth;
 
+import com.osmanalnaser.job_application_tracker.security.JwtService;
 import com.osmanalnaser.job_application_tracker.user.User;
 import com.osmanalnaser.job_application_tracker.user.UserRepository;
 import org.springframework.http.HttpStatus;
@@ -14,10 +15,12 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
-    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
     }
 
     public void register(RegisterRequest request) {
@@ -43,8 +46,7 @@ public class AuthService {
         if (!passwordMatches) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials");
         }
-        String fakeToken = "temp-token";
-
-        return new LoginResponse(fakeToken);
+        String token = jwtService.generateToken(user.getEmail());
+        return new LoginResponse(token);
     }
 }
