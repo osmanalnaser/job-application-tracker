@@ -2,8 +2,10 @@ package com.osmanalnaser.job_application_tracker.auth;
 
 import com.osmanalnaser.job_application_tracker.user.User;
 import com.osmanalnaser.job_application_tracker.user.UserRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 
@@ -19,6 +21,9 @@ public class AuthService {
     }
 
     public void register(RegisterRequest request) {
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email already exists");
+        }
         User user = new User();
         user.setName(request.getName());
         user.setEmail(request.getEmail());
