@@ -38,6 +38,7 @@ public class JobApplicationController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void deleteApplication(@PathVariable Long id) {
+
         jobApplicationService.deleteApplication(id);
     }
 
@@ -51,5 +52,10 @@ public class JobApplicationController {
     public JobApplicationResponse updateApplicationStatus(@PathVariable Long id,
                                                           @Valid @RequestBody UpdateApplicationStatusRequest request) {
         return jobApplicationService.updateApplicationStatus(id, request);
+    }
+
+    @GetMapping("/stats")
+    public ApplicationStatsResponse getApplicationStats() {
+        return jobApplicationService.getApplicationStats();
     }
 }
