@@ -53,9 +53,4 @@ public class JobApplicationController {
                                                           @Valid @RequestBody UpdateApplicationStatusRequest request) {
         return jobApplicationService.updateApplicationStatus(id, request);
     }
-
-    @GetMapping("/stats")
-    public ApplicationStatsResponse getApplicationStats() {
-        return jobApplicationService.getApplicationStats();
-    }
 }

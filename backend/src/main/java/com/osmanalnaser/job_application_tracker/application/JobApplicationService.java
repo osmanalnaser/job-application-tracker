@@ -120,10 +120,10 @@ public class JobApplicationService {
         return stats;
     }
 
-    public List<JobApplicationResponse> getRecentApplications() {
+    public List<JobApplicationResponse> getRecentApplications(int limit) {
         return jobApplicationRepository.findAllByOrderByAppliedDateDesc()
                 .stream()
-                .limit(5)
+                .limit(limit)
                 .map(jobApplicationMapper::toResponse)
                 .collect(Collectors.toList());
     }
