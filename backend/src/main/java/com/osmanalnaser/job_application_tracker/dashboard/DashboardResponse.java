@@ -1,0 +1,31 @@
+package com.osmanalnaser.job_application_tracker.dashboard;
+
+import com.osmanalnaser.job_application_tracker.application.ApplicationStatsResponse;
+import com.osmanalnaser.job_application_tracker.application.JobApplicationResponse;
+
+import java.util.List;
+
+public class DashboardResponse {
+
+    private ApplicationStatsResponse stats;
+    private List<JobApplicationResponse> recentApplications;
+
+    public DashboardResponse() {
+    }
+
+    public ApplicationStatsResponse getStats() {
+        return stats;
+    }
+
+    public void setStats(ApplicationStatsResponse stats) {
+        this.stats = stats;
+    }
+
+    public List<JobApplicationResponse> getRecentApplications() {
+        return recentApplications;
+    }
+
+    public void setRecentApplications(List<JobApplicationResponse> recentApplications) {
+        this.recentApplications = recentApplications;
+    }
+}
