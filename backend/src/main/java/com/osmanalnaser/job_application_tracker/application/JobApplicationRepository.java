@@ -17,8 +17,14 @@ public interface JobApplicationRepository extends JpaRepository<JobApplication, 
     List<JobApplication> findTop5ByUserEmailOrderByAppliedDateDesc(String email);
     long countByStatus(ApplicationStatus status);
     long countByUserEmailAndStatus(String email, ApplicationStatus status);
+
     @Query("SELECT j FROM JobApplication j WHERE j.user.email = :email AND (LOWER(j.company) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(j.position) LIKE LOWER(CONCAT('%', :keyword, '%'))) ORDER BY j.appliedDate DESC")
     List<JobApplication> searchByUserEmailAndKeyword(@Param("email") String email,
                                                      @Param("keyword") String keyword);
+
+    org.springframework.data.domain.Page<JobApplication> findByUserEmailOrderByAppliedDateDesc(
+            String email,
+            org.springframework.data.domain.Pageable pageable
+    );
 
 }
