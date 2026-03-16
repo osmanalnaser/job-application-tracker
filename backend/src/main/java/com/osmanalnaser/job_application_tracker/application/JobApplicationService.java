@@ -110,6 +110,13 @@ public class JobApplicationService {
         stats.setRejected(jobApplicationRepository.countByStatus(ApplicationStatus.REJECTED));
         stats.setOffer(jobApplicationRepository.countByStatus(ApplicationStatus.OFFER));
 
+        stats.setTotal(
+                stats.getApplied()
+                        + stats.getInterview()
+                        + stats.getRejected()
+                        + stats.getOffer()
+        );
+
         return stats;
     }
 

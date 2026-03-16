@@ -6,6 +6,7 @@ public class ApplicationStatsResponse {
     private long interview;
     private long rejected;
     private long offer;
+    private long total;
 
     public ApplicationStatsResponse() {
     }
@@ -40,5 +41,13 @@ public class ApplicationStatsResponse {
 
     public void setOffer(long offer) {
         this.offer = offer;
+    }
+
+    public long getTotal() {
+        return total;
+    }
+
+    public void setTotal(long total) {
+        this.total = total;
     }
 }
