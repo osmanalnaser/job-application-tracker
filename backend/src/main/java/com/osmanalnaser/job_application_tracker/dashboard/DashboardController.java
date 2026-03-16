@@ -1,5 +1,6 @@
 package com.osmanalnaser.job_application_tracker.dashboard;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,7 +14,7 @@ public class DashboardController {
     }
 
     @GetMapping("/api/dashboard")
-    public DashboardResponse getDashboard(String userEmail) {
-        return dashboardService.getDashboard(userEmail);
+    public DashboardResponse getDashboard(Authentication authentication) {
+        return dashboardService.getDashboard(authentication.getName());
     }
 }
