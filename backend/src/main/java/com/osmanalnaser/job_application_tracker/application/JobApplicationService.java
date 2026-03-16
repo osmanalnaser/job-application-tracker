@@ -121,9 +121,8 @@ public class JobApplicationService {
     }
 
     public List<JobApplicationResponse> getRecentApplications(int limit) {
-        return jobApplicationRepository.findAllByOrderByAppliedDateDesc()
+        return jobApplicationRepository.findTop5ByOrderByAppliedDateDesc()
                 .stream()
-                .limit(limit)
                 .map(jobApplicationMapper::toResponse)
                 .collect(Collectors.toList());
     }
