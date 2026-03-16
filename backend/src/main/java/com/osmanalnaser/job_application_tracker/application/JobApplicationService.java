@@ -155,4 +155,10 @@ public class JobApplicationService {
                 .toList();
     }
 
+    public org.springframework.data.domain.Page<JobApplicationResponse> getApplicationsPage(String userEmail,
+                                                                                            org.springframework.data.domain.Pageable pageable) {
+        return jobApplicationRepository.findByUserEmailOrderByAppliedDateDesc(userEmail, pageable)
+                .map(jobApplicationMapper::toResponse);
+    }
+
 }
