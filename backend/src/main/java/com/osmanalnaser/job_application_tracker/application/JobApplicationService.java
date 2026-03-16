@@ -23,9 +23,9 @@ public class JobApplicationService {
         this.jobApplicationMapper = jobApplicationMapper;
     }
 
-    public List<JobApplicationResponse> getAllApplications() {
+    public List<JobApplicationResponse> getAllApplications(String userEmail) {
 
-        return jobApplicationRepository.findAllByOrderByAppliedDateDesc()
+        return jobApplicationRepository.findByUserEmailOrderByAppliedDateDesc(userEmail)
                 .stream()
                 .map(jobApplicationMapper::toResponse)
                 .collect(Collectors.toList());

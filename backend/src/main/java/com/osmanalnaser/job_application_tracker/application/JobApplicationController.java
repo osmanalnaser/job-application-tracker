@@ -18,12 +18,13 @@ public class JobApplicationController {
     }
 
     @GetMapping
-    public List<JobApplicationResponse> getAllApplications(@RequestParam(required = false) ApplicationStatus status) {
+    public List<JobApplicationResponse> getAllApplications(@RequestParam(required = false) ApplicationStatus status,
+                                                           Authentication authentication) {
         if (status != null) {
             return jobApplicationService.getApplicationsByStatus(status);
         }
 
-        return jobApplicationService.getAllApplications();
+        return jobApplicationService.getAllApplications(authentication.getName());
     }
 
     @GetMapping("/{id}")
