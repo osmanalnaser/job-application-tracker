@@ -9,6 +9,7 @@ public class DashboardResponse {
 
     private ApplicationStatsResponse stats;
     private List<JobApplicationResponse> recentApplications;
+    private List<JobApplicationResponse> upcomingReminders;
 
     public DashboardResponse() {
     }
@@ -27,5 +28,13 @@ public class DashboardResponse {
 
     public void setRecentApplications(List<JobApplicationResponse> recentApplications) {
         this.recentApplications = recentApplications;
+    }
+
+    public List<JobApplicationResponse> getUpcomingReminders() {
+        return upcomingReminders;
+    }
+
+    public void setUpcomingReminders(List<JobApplicationResponse> upcomingReminders) {
+        this.upcomingReminders = upcomingReminders;
     }
 }
