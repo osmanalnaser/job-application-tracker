@@ -25,7 +25,7 @@ public class JobApplicationService {
 
     public List<JobApplicationResponse> getAllApplications(String userEmail) {
 
-        return jobApplicationRepository.findByUserEmailOrderByAppliedDateDesc(userEmail)
+        return jobApplicationRepository.findByUserEmail(userEmail)
                 .stream()
                 .map(jobApplicationMapper::toResponse)
                 .collect(Collectors.toList());
@@ -170,7 +170,7 @@ public class JobApplicationService {
     public org.springframework.data.domain.Page<JobApplicationResponse> getApplicationsPageByStatus(String userEmail,
                                                                                                     ApplicationStatus status,
                                                                                                     org.springframework.data.domain.Pageable pageable) {
-        return jobApplicationRepository.findByUserEmailAndStatusOrderByAppliedDateDesc(userEmail, status, pageable)
+        return jobApplicationRepository.findByUserEmailAndStatus(userEmail, status, pageable)
                 .map(jobApplicationMapper::toResponse);
     }
 

@@ -11,7 +11,7 @@ public interface JobApplicationRepository extends JpaRepository<JobApplication, 
     List<JobApplication> findAllByOrderByAppliedDateDesc();
     List<JobApplication> findByStatusOrderByAppliedDateDesc(ApplicationStatus status);
     List<JobApplication> findTop5ByOrderByAppliedDateDesc();
-    List<JobApplication> findByUserEmailOrderByAppliedDateDesc(String email);
+    List<JobApplication> findByUserEmail(String email);
     List<JobApplication> findByUserEmailAndStatusOrderByAppliedDateDesc(String email, ApplicationStatus status);
     Optional<JobApplication> findByIdAndUserEmail(Long id, String email);
     List<JobApplication> findTop5ByUserEmailOrderByAppliedDateDesc(String email);
@@ -33,7 +33,7 @@ public interface JobApplicationRepository extends JpaRepository<JobApplication, 
             org.springframework.data.domain.Pageable pageable
     );
 
-    org.springframework.data.domain.Page<JobApplication> findByUserEmailAndStatusOrderByAppliedDateDesc(
+    org.springframework.data.domain.Page<JobApplication> findByUserEmailAndStatus(
             String email,
             ApplicationStatus status,
             org.springframework.data.domain.Pageable pageable
