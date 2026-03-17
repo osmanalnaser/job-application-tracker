@@ -168,4 +168,11 @@ public class JobApplicationService {
                 .map(jobApplicationMapper::toResponse);
     }
 
+    public org.springframework.data.domain.Page<JobApplicationResponse> getApplicationsPageByStatus(String userEmail,
+                                                                                                    ApplicationStatus status,
+                                                                                                    org.springframework.data.domain.Pageable pageable) {
+        return jobApplicationRepository.findByUserEmailAndStatusOrderByAppliedDateDesc(userEmail, status, pageable)
+                .map(jobApplicationMapper::toResponse);
+    }
+
 }
