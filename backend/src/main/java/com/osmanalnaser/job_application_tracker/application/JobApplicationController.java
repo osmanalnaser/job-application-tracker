@@ -88,13 +88,18 @@ public class JobApplicationController {
 
     @GetMapping("/search/page")
     public org.springframework.data.domain.Page<JobApplicationResponse> searchApplicationsPage(
-            @RequestParam String keyword,
+            @RequestParam(required = false) String keyword,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             Authentication authentication) {
 
         org.springframework.data.domain.Pageable pageable =
                 org.springframework.data.domain.PageRequest.of(page, size);
+
+        if (keyword != null && !keyword.isBlank()) {
+            return jobApplicationService.searchApplicationsPage(authentication.getName(), keyword, pageable);
+        }
+
 
         return jobApplicationService.searchApplicationsPage(authentication.getName(), keyword, pageable);
     }
