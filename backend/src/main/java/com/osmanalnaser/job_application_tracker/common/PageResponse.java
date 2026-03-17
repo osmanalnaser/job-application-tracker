@@ -1,5 +1,7 @@
 package com.osmanalnaser.job_application_tracker.common;
 
+import org.springframework.data.domain.Page;
+
 import java.util.List;
 
 public class PageResponse<T> {
@@ -69,5 +71,17 @@ public class PageResponse<T> {
 
     public void setLast(boolean last) {
         this.last = last;
+    }
+
+    public static <T> PageResponse<T> from(Page<T> page) {
+        PageResponse<T> response = new PageResponse();
+        response.setContent(page.getContent());
+        response.setPage(page.getNumber());
+        response.setSize(page.getSize());
+        response.setTotalElements(page.getTotalElements());
+        response.setTotalPages(page.getTotalPages());
+        response.setFirst(page.isFirst());
+        response.setLast(page.isLast());
+        return response;
     }
 }
