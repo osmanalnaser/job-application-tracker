@@ -1,5 +1,6 @@
 package com.osmanalnaser.job_application_tracker.application;
 
+import com.osmanalnaser.job_application_tracker.common.PageResponse;
 import com.osmanalnaser.job_application_tracker.dashboard.DashboardResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -75,7 +76,8 @@ public class JobApplicationController {
     }
 
     @GetMapping("/page")
-    public org.springframework.data.domain.Page<JobApplicationResponse> getApplicationsPage(
+    public PageResponse<JobApplicationResponse> getApplicationsPage(
+            @RequestParam(required = false) String keyword,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             Authentication authentication) {
@@ -83,7 +85,14 @@ public class JobApplicationController {
         org.springframework.data.domain.Pageable pageable =
                 org.springframework.data.domain.PageRequest.of(page, size);
 
-        return jobApplicationService.getApplicationsPage(authentication.getName(), pageable);
+        if (keyword != null && !keyword.isBlank()) {
+            return PageResponse.from(
+                    jobApplicationService.searchApplicationsPage(authentication.getName(), keyword, pageable)
+            );
+        }
+        return PageResponse.from(
+                jobApplicationService.getApplicationsPage(authentication.getName(), pageable)
+        );
     }
 
 
