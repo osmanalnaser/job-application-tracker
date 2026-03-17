@@ -1,11 +1,10 @@
 package com.osmanalnaser.job_application_tracker.application;
 
 import com.osmanalnaser.job_application_tracker.dashboard.DashboardResponse;
+import com.osmanalnaser.job_application_tracker.exception.ResourceNotFoundException;
 import com.osmanalnaser.job_application_tracker.user.User;
 import com.osmanalnaser.job_application_tracker.user.UserRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -34,7 +33,7 @@ public class JobApplicationService {
 
     public JobApplicationResponse createApplication(CreateJobApplicationRequest request, String userEmail) {
         User user = userRepository.findByEmail(userEmail)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         JobApplication jobApplication = new JobApplication();
         jobApplication.setCompany(request.getCompany());
@@ -84,7 +83,7 @@ public class JobApplicationService {
 
     private JobApplication findJobApplicationById(Long id, String userEmail) {
         return jobApplicationRepository.findByIdAndUserEmail(id, userEmail)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Job application not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Job application not found"));
     }
 
     public JobApplicationResponse updateApplicationStatus(Long id, String userEmail, UpdateApplicationStatusRequest request) {
