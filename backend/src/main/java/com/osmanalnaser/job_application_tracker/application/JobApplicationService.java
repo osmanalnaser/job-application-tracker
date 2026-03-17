@@ -197,4 +197,15 @@ public class JobApplicationService {
                 .toList();
     }
 
+    public List<JobApplicationResponse> getTodayReminders(String userEmail) {
+        return jobApplicationRepository
+                .findByUserEmailAndReminderDateOrderByReminderDateAsc(
+                        userEmail,
+                        java.time.LocalDate.now()
+                )
+                .stream()
+                .map(jobApplicationMapper::toResponse)
+                .toList();
+    }
+
 }
