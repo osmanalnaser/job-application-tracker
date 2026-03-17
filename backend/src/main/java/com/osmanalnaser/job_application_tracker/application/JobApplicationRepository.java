@@ -76,4 +76,9 @@ public interface JobApplicationRepository extends JpaRepository<JobApplication, 
             org.springframework.data.domain.Pageable pageable
     );
 
+    List<JobApplication> findByUserEmailAndReminderDateGreaterThanEqualOrderByReminderDateAsc(
+            String email,
+            java.time.LocalDate date
+    );
+
 }
