@@ -111,4 +111,9 @@ public class JobApplicationController {
     public List<JobApplicationResponse> getUpcomingReminders(Authentication authentication) {
         return jobApplicationService.getUpcomingReminders(authentication.getName());
     }
+
+    @GetMapping("/reminders/today")
+    public List<JobApplicationResponse> getTodayReminders(Authentication authentication) {
+        return jobApplicationService.getTodayReminders(authentication.getName());
+    }
 }
