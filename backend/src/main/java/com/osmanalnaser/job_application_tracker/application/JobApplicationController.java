@@ -107,4 +107,8 @@ public class JobApplicationController {
                 jobApplicationService.getApplicationsPage(authentication.getName(), pageable)
         );
     }
+    @GetMapping("/reminders/upcoming")
+    public List<JobApplicationResponse> getUpcomingReminders(Authentication authentication) {
+        return jobApplicationService.getUpcomingReminders(authentication.getName());
+    }
 }
