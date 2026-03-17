@@ -85,4 +85,17 @@ public class JobApplicationController {
 
         return jobApplicationService.getApplicationsPage(authentication.getName(), pageable);
     }
+
+    @GetMapping("/search/page")
+    public org.springframework.data.domain.Page<JobApplicationResponse> searchApplicationsPage(
+            @RequestParam String keyword,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Authentication authentication) {
+
+        org.springframework.data.domain.Pageable pageable =
+                org.springframework.data.domain.PageRequest.of(page, size);
+
+        return jobApplicationService.searchApplicationsPage(authentication.getName(), keyword, pageable);
+    }
 }
