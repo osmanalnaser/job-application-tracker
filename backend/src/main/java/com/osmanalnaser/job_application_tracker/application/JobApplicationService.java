@@ -161,4 +161,11 @@ public class JobApplicationService {
                 .map(jobApplicationMapper::toResponse);
     }
 
+    public org.springframework.data.domain.Page<JobApplicationResponse> searchApplicationsPage(String userEmail,
+                                                                                               String keyword,
+                                                                                               org.springframework.data.domain.Pageable pageable) {
+        return jobApplicationRepository.searchPageByUserEmailAndKeyword(userEmail, keyword, pageable)
+                .map(jobApplicationMapper::toResponse);
+    }
+
 }
