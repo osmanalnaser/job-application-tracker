@@ -81,4 +81,9 @@ public interface JobApplicationRepository extends JpaRepository<JobApplication, 
             java.time.LocalDate date
     );
 
+    List<JobApplication> findByUserEmailAndReminderDateOrderByReminderDateAsc(
+            String email,
+            java.time.LocalDate reminderDate
+    );
+
 }
