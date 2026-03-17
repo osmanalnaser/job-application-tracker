@@ -85,9 +85,18 @@ public class JobApplicationController {
             @RequestParam(defaultValue = "desc") String direction,
             Authentication authentication) {
 
+        String safeSortBy = switch (sortBy) {
+            case "company" -> "company";
+            case "position" -> "position";
+            case "status" -> "status";
+            case "appliedDate" -> "appliedDate";
+            case "reminderDate" -> "reminderDate";
+            default -> "appliedDate";
+        };
+
         org.springframework.data.domain.Sort sort = direction.equalsIgnoreCase("asc")
-                ? org.springframework.data.domain.Sort.by(sortBy).ascending()
-                : org.springframework.data.domain.Sort.by(sortBy).descending();
+                ? org.springframework.data.domain.Sort.by(safeSortBy).ascending()
+                : org.springframework.data.domain.Sort.by(safeSortBy).descending();
 
         org.springframework.data.domain.Pageable pageable =
                 org.springframework.data.domain.PageRequest.of(page, size, sort);
