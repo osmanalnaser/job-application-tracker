@@ -78,6 +78,7 @@ public class JobApplicationController {
     @GetMapping("/page")
     public PageResponse<JobApplicationResponse> getApplicationsPage(
             @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) ApplicationStatus status,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             Authentication authentication) {
@@ -90,10 +91,13 @@ public class JobApplicationController {
                     jobApplicationService.searchApplicationsPage(authentication.getName(), keyword, pageable)
             );
         }
+        if (status != null) {
+            return PageResponse.from(
+                    jobApplicationService.getApplicationsPageByStatus(authentication.getName(), status, pageable)
+            );
+        }
         return PageResponse.from(
                 jobApplicationService.getApplicationsPage(authentication.getName(), pageable)
         );
     }
-
-
 }
