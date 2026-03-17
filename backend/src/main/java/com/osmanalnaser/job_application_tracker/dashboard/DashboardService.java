@@ -17,6 +17,7 @@ public class DashboardService {
         response.setStats(jobApplicationService.getApplicationStats(userEmail));
         response.setRecentApplications(jobApplicationService.getRecentApplications(userEmail));
         response.setUpcomingReminders(jobApplicationService.getUpcomingReminders(userEmail));
+        response.setTodayReminders(jobApplicationService.getTodayReminders(userEmail));
         return response;
     }
 }
