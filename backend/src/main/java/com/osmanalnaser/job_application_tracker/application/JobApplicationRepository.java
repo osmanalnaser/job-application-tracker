@@ -56,4 +56,24 @@ public interface JobApplicationRepository extends JpaRepository<JobApplication, 
             org.springframework.data.domain.Pageable pageable
     );
 
+    @Query(
+            value = "SELECT j FROM JobApplication j " +
+                    "WHERE j.user.email = :email " +
+                    "AND j.status = :status " +
+                    "AND (LOWER(j.company) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
+                    "OR LOWER(j.position) LIKE LOWER(CONCAT('%', :keyword, '%'))) " +
+                    "ORDER BY j.appliedDate DESC",
+            countQuery = "SELECT COUNT(j) FROM JobApplication j " +
+                    "WHERE j.user.email = :email " +
+                    "AND j.status = :status " +
+                    "AND (LOWER(j.company) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
+                    "OR LOWER(j.position) LIKE LOWER(CONCAT('%', :keyword, '%')))"
+    )
+    org.springframework.data.domain.Page<JobApplication> searchPageByUserEmailAndKeywordAndStatus(
+            @Param("email") String email,
+            @Param("keyword") String keyword,
+            @Param("status") ApplicationStatus status,
+            org.springframework.data.domain.Pageable pageable
+    );
+
 }
