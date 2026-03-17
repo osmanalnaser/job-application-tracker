@@ -33,6 +33,12 @@ public interface JobApplicationRepository extends JpaRepository<JobApplication, 
             org.springframework.data.domain.Pageable pageable
     );
 
+    org.springframework.data.domain.Page<JobApplication> findByUserEmailAndStatusOrderByAppliedDateDesc(
+            String email,
+            ApplicationStatus status,
+            org.springframework.data.domain.Pageable pageable
+    );
+
     @Query(
             value = "SELECT j FROM JobApplication j " +
                     "WHERE j.user.email = :email " +
