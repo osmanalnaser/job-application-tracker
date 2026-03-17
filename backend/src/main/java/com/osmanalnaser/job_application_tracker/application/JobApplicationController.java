@@ -81,10 +81,16 @@ public class JobApplicationController {
             @RequestParam(required = false) ApplicationStatus status,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "appliedDate") String sortBy,
+            @RequestParam(defaultValue = "desc") String direction,
             Authentication authentication) {
 
+        org.springframework.data.domain.Sort sort = direction.equalsIgnoreCase("asc")
+                ? org.springframework.data.domain.Sort.by(sortBy).ascending()
+                : org.springframework.data.domain.Sort.by(sortBy).descending();
+
         org.springframework.data.domain.Pageable pageable =
-                org.springframework.data.domain.PageRequest.of(page, size);
+                org.springframework.data.domain.PageRequest.of(page, size, sort);
 
         String userEmail = authentication.getName();
 
