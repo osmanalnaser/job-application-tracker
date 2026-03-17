@@ -86,6 +86,13 @@ public class JobApplicationController {
         org.springframework.data.domain.Pageable pageable =
                 org.springframework.data.domain.PageRequest.of(page, size);
 
+        String userEmail = authentication.getName();
+
+        if (keyword != null && !keyword.isBlank() && status != null) {
+            return PageResponse.from(
+                    jobApplicationService.searchApplicationsPageByKeywordAndStatus(userEmail, keyword, status, pageable)
+            );
+        }
         if (keyword != null && !keyword.isBlank()) {
             return PageResponse.from(
                     jobApplicationService.searchApplicationsPage(authentication.getName(), keyword, pageable)
