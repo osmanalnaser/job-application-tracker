@@ -186,4 +186,15 @@ public class JobApplicationService {
                 .map(jobApplicationMapper::toResponse);
     }
 
+    public List<JobApplicationResponse> getUpcomingReminders(String userEmail) {
+        return jobApplicationRepository
+                .findByUserEmailAndReminderDateGreaterThanEqualOrderByReminderDateAsc(
+                        userEmail,
+                        java.time.LocalDate.now()
+                )
+                .stream()
+                .map(jobApplicationMapper::toResponse)
+                .toList();
+    }
+
 }
