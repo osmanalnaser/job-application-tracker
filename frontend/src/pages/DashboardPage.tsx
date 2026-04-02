@@ -1,54 +1,55 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
-function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+function DashboardPage() {
+  const [dashboardData, setDashboardData] = useState<any>(null);
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+  useEffect(() => {
+    const fetchDashboard = async () => {
+      try {
+        const token = localStorage.getItem("token");
 
-    try {
-      const response = await axios.post("http://localhost:8080/api/auth/login", {
-        email,
-        password,
-      });
+        const response = await axios.get(
+          "http://localhost:8080/api/dashboard",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
-      console.log("LOGIN SUCCESS:", response.data);
+        console.log("DASHBOARD DATA:", response.data);
+        setDashboardData(response.data);
+      } catch (error) {
+        console.error("ERROR FETCHING DASHBOARD:", error);
+      }
+    };
 
-      // später: token speichern
-    } catch (error) {
-      console.error("LOGIN ERROR:", error);
-    }
-  };
+    fetchDashboard();
+  }, []);
+
+  if (!dashboardData) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
-      <h1>Login</h1>
+      <h1>Dashboard</h1>
 
-      <form onSubmit={handleLogin}>
-        <div>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
+      <p>Total Applications: {dashboardData.totalApplications}</p>
 
-        <div>
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-
-        <button type="submit">Login</button>
-      </form>
+      <h2>Applications by Status</h2>
+      <ul>
+        {Object.entries(dashboardData.applicationsByStatus).map(
+          ([status, count]) => (
+            <li key={status}>
+              {status}: {count as number}
+            </li>
+          )
+        )}
+      </ul>
     </div>
   );
 }
 
-export default LoginPage;
+export default DashboardPage;
