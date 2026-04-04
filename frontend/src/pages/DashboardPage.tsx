@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function DashboardPage() {
   const [dashboardData, setDashboardData] = useState<any>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDashboard = async () => {
@@ -28,28 +30,38 @@ function DashboardPage() {
     fetchDashboard();
   }, []);
 
+  const handleLogout = () => {
+      localStorage.removeItem("token");
+      navigate("/login");
+    };
+
   if (!dashboardData) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div>
-      <h1>Dashboard</h1>
+  <div>
+    <button onClick={handleLogout}>
+      Logout
+    </button>
 
-      <p>Total Applications: {dashboardData.totalApplications}</p>
+    <h1>Dashboard</h1>
 
-      <h2>Applications by Status</h2>
-      <ul>
-        {Object.entries(dashboardData.applicationsByStatus).map(
-          ([status, count]) => (
-            <li key={status}>
-              {status}: {count as number}
-            </li>
-          )
-        )}
-      </ul>
-    </div>
-  );
+    <p>Total Applications: {dashboardData.totalApplications}</p>
+
+    <h2>Applications by Status</h2>
+
+    <ul>
+      {Object.entries(dashboardData.applicationsByStatus).map(
+        ([status, count]) => (
+          <li key={status}>
+            {status}: {count as number}
+          </li>
+        )
+      )}
+    </ul>
+  </div>
+);
 }
 
 export default DashboardPage;
