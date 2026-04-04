@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 import { useNavigate } from "react-router-dom";
 
 function DashboardPage() {
@@ -11,13 +11,8 @@ function DashboardPage() {
       try {
         const token = localStorage.getItem("token");
 
-        const response = await axios.get(
-          "http://localhost:8080/api/dashboard",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+        const response = await axiosInstance.get(
+          "/api/dashboard"
         );
 
         console.log("DASHBOARD DATA:", response.data);
