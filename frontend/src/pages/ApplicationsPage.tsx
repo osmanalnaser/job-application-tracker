@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../api/axiosInstance";
+import { useNavigate } from "react-router-dom";
 
 interface JobApplication {
   id: number;
@@ -11,6 +12,7 @@ interface JobApplication {
 function ApplicationsPage() {
   const [applications, setApplications] = useState<JobApplication[]>([]);
   const [page, setPage] = useState(0);
+  const navigate = useNavigate();
 
   const fetchApplications = async () => {
     try {
@@ -34,6 +36,10 @@ function ApplicationsPage() {
   return (
     <div>
       <h1>Applications</h1>
+
+      <button onClick={() => navigate("/applications/create")}>
+        Create Application
+      </button>
 
       <table border={1}>
         <thead>

@@ -9,6 +9,7 @@ import {
 import LoginPage from "./pages/LoginPage";
 import DashboardPage from "./pages/DashboardPage";
 import ApplicationsPage from "./pages/ApplicationsPage";
+import CreateApplicationPage from "./pages/CreateApplicationPage";
 
 function ProtectedRoute({
   children,
@@ -45,6 +46,14 @@ function App() {
           element={
             <ProtectedRoute>
               <ApplicationsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/applications/create"
+          element={
+            <ProtectedRoute>
+              <CreateApplicationPage />
             </ProtectedRoute>
           }
         />
