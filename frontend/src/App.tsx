@@ -8,6 +8,7 @@ import {
 
 import LoginPage from "./pages/LoginPage";
 import DashboardPage from "./pages/DashboardPage";
+import ApplicationsPage from "./pages/ApplicationsPage";
 
 function ProtectedRoute({
   children,
@@ -36,6 +37,14 @@ function App() {
           element={
             <ProtectedRoute>
               <DashboardPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/applications"
+          element={
+            <ProtectedRoute>
+              <ApplicationsPage />
             </ProtectedRoute>
           }
         />
