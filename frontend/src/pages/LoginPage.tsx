@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -21,32 +20,36 @@ function LoginPage() {
         }
       );
 
-      console.log("LOGIN SUCCESS:", response.data);
+      console.log("LOGIN RESPONSE:", response.data);
 
-      localStorage.setItem("token", response.data.token);
+      localStorage.setItem(
+        "token",
+        response.data.token
+      );
 
       navigate("/dashboard");
+
     } catch (error) {
       console.error("LOGIN ERROR:", error);
-      setErrorMessage("Invalid email or password");
+      alert("Login failed");
     }
   };
 
   return (
     <div>
+
       <h1>Login</h1>
 
-      {errorMessage && (
-        <p style={{ color: "red" }}>{errorMessage}</p>
-      )}
-
       <form onSubmit={handleLogin}>
+
         <div>
           <input
             type="email"
             placeholder="Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) =>
+              setEmail(e.target.value)
+            }
           />
         </div>
 
@@ -55,12 +58,18 @@ function LoginPage() {
             type="password"
             placeholder="Password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) =>
+              setPassword(e.target.value)
+            }
           />
         </div>
 
-        <button type="submit">Login</button>
+        <button type="submit">
+          Login
+        </button>
+
       </form>
+
     </div>
   );
 }

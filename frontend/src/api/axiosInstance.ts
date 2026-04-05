@@ -14,18 +14,16 @@ axiosInstance.interceptors.request.use(
 
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 axiosInstance.interceptors.response.use(
-  (response) => {
-    return response;
-  },
+  (response) => response,
   (error) => {
+
     if (error.response && error.response.status === 401) {
-      console.log("Token expired or unauthorized");
+
+      console.log("Unauthorized — redirecting to login");
 
       localStorage.removeItem("token");
 

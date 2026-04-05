@@ -1,35 +1,24 @@
-import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import LoginPage from "./pages/LoginPage";
 import DashboardPage from "./pages/DashboardPage";
 import ApplicationsPage from "./pages/ApplicationsPage";
 import CreateApplicationPage from "./pages/CreateApplicationPage";
 
-function ProtectedRoute({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const token = localStorage.getItem("token");
 
   if (!token) {
     return <Navigate to="/login" replace />;
   }
 
-  return children;
+  return <>{children}</>;
 }
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
 
         <Route path="/login" element={<LoginPage />} />
 
@@ -41,6 +30,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/applications"
           element={
@@ -49,6 +39,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/applications/create"
           element={
@@ -57,8 +48,14 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        <Route
+          path="*"
+          element={<Navigate to="/dashboard" />}
+        />
+
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 
