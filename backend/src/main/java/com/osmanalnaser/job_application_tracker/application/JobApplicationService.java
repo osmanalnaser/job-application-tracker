@@ -6,6 +6,7 @@ import com.osmanalnaser.job_application_tracker.user.User;
 import com.osmanalnaser.job_application_tracker.user.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,7 +43,11 @@ public class JobApplicationService {
         jobApplication.setJobUrl(request.getJobUrl());
         jobApplication.setSalaryRange(request.getSalaryRange());
         jobApplication.setStatus(request.getStatus());
-        jobApplication.setAppliedDate(request.getAppliedDate());
+        if (request.getAppliedDate() != null) {
+            jobApplication.setAppliedDate(request.getAppliedDate());
+        } else {
+            jobApplication.setAppliedDate(LocalDate.now());
+        }
         jobApplication.setReminderDate(request.getReminderDate());
         jobApplication.setNotes(request.getNotes());
         jobApplication.setCreatedAt(LocalDateTime.now());
@@ -72,7 +77,11 @@ public class JobApplicationService {
         jobApplication.setJobUrl(request.getJobUrl());
         jobApplication.setSalaryRange(request.getSalaryRange());
         jobApplication.setStatus(request.getStatus());
-        jobApplication.setAppliedDate(request.getAppliedDate());
+        if (request.getAppliedDate() != null) {
+            jobApplication.setAppliedDate(request.getAppliedDate());
+        } else {
+            jobApplication.setAppliedDate(LocalDate.now());
+        }
         jobApplication.setReminderDate(request.getReminderDate());
         jobApplication.setNotes(request.getNotes());
         jobApplication.setUpdatedAt(LocalDateTime.now());
