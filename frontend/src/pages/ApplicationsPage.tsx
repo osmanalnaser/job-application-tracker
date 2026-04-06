@@ -1,13 +1,7 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../api/axiosInstance";
 import { useNavigate } from "react-router-dom";
-
-interface JobApplication {
-  id: number;
-  company: string;
-  position: string;
-  status: string;
-}
+import type { JobApplication } from "../types";
 
 function ApplicationsPage() {
   const [applications, setApplications] =

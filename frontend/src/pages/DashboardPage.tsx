@@ -1,29 +1,7 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../api/axiosInstance";
 import { useNavigate } from "react-router-dom";
-
-interface Stats {
-  total: number;
-  applied: number;
-  interview: number;
-  offer: number;
-  rejected: number;
-}
-
-interface Application {
-  id: number;
-  company: string;
-  position: string;
-  status: string;
-  appliedDate: string;
-}
-
-interface DashboardData {
-  stats: Stats;
-  recentApplications: Application[];
-  upcomingReminders: Application[];
-  todayReminders: Application[];
-}
+import type { DashboardData } from "../types";
 
 function DashboardPage() {
   const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
