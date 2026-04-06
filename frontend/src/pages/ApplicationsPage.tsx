@@ -103,8 +103,15 @@ function ApplicationsPage() {
               </td>
 
               <td>
-
+                <button 
+                
+                    onClick={() => 
+                    navigate(`/applications/${app.id}/edit`)}>
+                Edit
+                </button>
+                
                 <button
+
                   onClick={() =>
                     handleDelete(app.id)
                   }
