@@ -6,6 +6,7 @@ import DashboardPage from "./pages/DashboardPage";
 import ApplicationsPage from "./pages/ApplicationsPage";
 import CreateApplicationPage from "./pages/CreateApplicationPage";
 import EditApplicationPage from "./pages/EditApplicationPage";
+import KanbanPage from "./pages/KanbanPage";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const token = localStorage.getItem("token");
@@ -34,6 +35,10 @@ function App() {
 
         <Route path="/applications/:id/edit" element={
           <ProtectedRoute><EditApplicationPage /></ProtectedRoute>
+        } />
+
+        <Route path="/kanban" element={
+          <ProtectedRoute><KanbanPage /></ProtectedRoute>
         } />
 
         <Route path="*" element={<Navigate to="/dashboard" />} />

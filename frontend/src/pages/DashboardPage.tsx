@@ -37,6 +37,7 @@ function DashboardPage() {
 
       <button onClick={() => navigate("/applications")}>Go to Applications</button>
       <button onClick={handleLogout}>Logout</button>
+      <button onClick={() => navigate("/kanban")}>Kanban Board</button>
 
       <h2>Stats</h2>
       <ul>
