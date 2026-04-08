@@ -43,68 +43,51 @@ function CreateApplicationPage() {
   };
 
   return (
-    <div>
-
-      <h1>
-        Create Application
-      </h1>
-
-      <form
-        onSubmit={handleSubmit}
-      >
-
-        <div>
-          <input
-            type="text"
-            placeholder="Company"
-            value={company}
-            onChange={(e) =>
-              setCompany(e.target.value)
-            }
-          />
-        </div>
-
-        <div>
-          <input
-            type="text"
-            placeholder="Position"
-            value={position}
-            onChange={(e) =>
-              setPosition(e.target.value)
-            }
-          />
-        </div>
-
-        <div>
-          <select
-            value={status}
-            onChange={(e) =>
-              setStatus(
-                e.target.value
-              )
-            }
-          >
-            <option value="APPLIED">
-              APPLIED
-            </option>
-            <option value="INTERVIEW">
-              INTERVIEW
-            </option>
-            <option value="OFFER">
-              OFFER
-            </option>
-            <option value="REJECTED">
-              REJECTED
-            </option>
-          </select>
-        </div>
-
-        <button type="submit">
-          Create
+    <div className="page">
+      <div className="navbar">
+        <h1>New Application</h1>
+        <button className="btn-secondary" onClick={() => navigate("/applications")}>
+          Cancel
         </button>
+      </div>
 
-      </form>
+      <div className="card" style={{ maxWidth: "600px" }}>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>Company *</label>
+            <input
+              type="text"
+              placeholder="e.g. Google"
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+            />
+          </div>
 
+          <div className="form-group">
+            <label>Position *</label>
+            <input
+              type="text"
+              placeholder="e.g. Software Engineer"
+              value={position}
+              onChange={(e) => setPosition(e.target.value)}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Status</label>
+            <select value={status} onChange={(e) => setStatus(e.target.value)}>
+              <option value="APPLIED">Applied</option>
+              <option value="INTERVIEW">Interview</option>
+              <option value="OFFER">Offer</option>
+              <option value="REJECTED">Rejected</option>
+            </select>
+          </div>
+
+          <button type="submit" className="btn-primary">
+            Create Application
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

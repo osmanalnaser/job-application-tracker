@@ -20,24 +20,26 @@ function KanbanColumn({ status, applications }: Props) {
   return (
     <div
       ref={setNodeRef}
+      className="kanban-column"
       style={{
-        minWidth: "250px",
-        minHeight: "400px",
         background: isOver ? "#e8f4ff" : "#f4f4f4",
-        borderRadius: "8px",
-        padding: "12px",
-        transition: "background 0.2s",
       }}
     >
-      <h3 style={{ marginBottom: "12px" }}>
-        {STATUS_LABELS[status]} ({applications.length})
-      </h3>
-
-      <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-        {applications.map((app) => (
-          <KanbanCard key={app.id} application={app} />
-        ))}
+      <div className="kanban-column-header">
+        <span>{STATUS_LABELS[status]}</span>
+        <span style={{
+          background: "#e5e7eb",
+          borderRadius: "999px",
+          padding: "2px 8px",
+          fontSize: "12px",
+        }}>
+          {applications.length}
+        </span>
       </div>
+
+      {applications.map((app) => (
+        <KanbanCard key={app.id} application={app} />
+      ))}
     </div>
   );
 }

@@ -21,31 +21,26 @@ function KanbanCard({ application }: Props) {
   return (
     <div
       ref={setNodeRef}
+      className="kanban-card"
       style={{
-        background: "white",
-        borderRadius: "6px",
-        padding: "12px",
-        boxShadow: isDragging ? "0 4px 12px rgba(0,0,0,0.2)" : "0 1px 4px rgba(0,0,0,0.1)",
         opacity: isDragging ? 0.5 : 1,
-        cursor: "grab",
         ...style,
       }}
       {...listeners}
       {...attributes}
     >
-      <p style={{ fontWeight: "bold", margin: 0 }}>{application.company}</p>
-      <p style={{ margin: "4px 0", color: "#555" }}>{application.position}</p>
+      <p className="kanban-card-company">{application.company}</p>
+      <p className="kanban-card-position">{application.position}</p>
       {application.location && (
-        <p style={{ margin: "4px 0", fontSize: "12px", color: "#888" }}>
-          {application.location}
-        </p>
+        <p className="kanban-card-location">{application.location}</p>
       )}
       <button
+        className="btn-secondary btn-sm"
+        style={{ marginTop: "8px" }}
         onClick={(e) => {
           e.stopPropagation();
           navigate(`/applications/${application.id}/edit`);
         }}
-        style={{ marginTop: "8px", fontSize: "12px" }}
       >
         Edit
       </button>

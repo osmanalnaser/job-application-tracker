@@ -54,99 +54,78 @@ function ApplicationsPage() {
   };
 
   return (
-    <div>
+    <div className="page">
+      <div className="navbar">
+        <h1>Applications</h1>
+        <div className="navbar-actions">
+          <button className="btn-secondary" onClick={() => navigate("/dashboard")}>
+            Dashboard
+          </button>
+          <button className="btn-secondary" onClick={() => navigate("/kanban")}>
+            Kanban
+          </button>
+          <button className="btn-primary" onClick={() => navigate("/applications/create")}>
+            + New Application
+          </button>
+        </div>
+      </div>
 
-      <h1>Applications</h1>
-
-      <button
-        onClick={() =>
-          navigate("/applications/create")
-        }
-      >
-        Create Application
-      </button>
-
-      <button
-        onClick={() =>
-          navigate("/dashboard")
-        }
-      >
-        Back to Dashboard
-      </button>
-
-      <table border={1}>
-
-        <thead>
-          <tr>
-            <th>Company</th>
-            <th>Position</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          {applications.map((app) => (
-            <tr key={app.id}>
-
-              <td>
-                {app.company}
-              </td>
-
-              <td>
-                {app.position}
-              </td>
-
-              <td>
-                {app.status}
-              </td>
-
-              <td>
-                <button 
-                
-                    onClick={() => 
-                    navigate(`/applications/${app.id}/edit`)}>
-                Edit
-                </button>
-                
-                <button
-
-                  onClick={() =>
-                    handleDelete(app.id)
-                  }
-                >
-                  Delete
-                </button>
-
-              </td>
-
+      <div className="card">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>Position</th>
+              <th>Status</th>
+              <th>Actions</th>
             </tr>
-          ))}
+          </thead>
+          <tbody>
+            {applications.map((app) => (
+              <tr key={app.id}>
+                <td>{app.company}</td>
+                <td>{app.position}</td>
+                <td>
+                  <span className={`badge badge-${app.status}`}>
+                    {app.status}
+                  </span>
+                </td>
+                <td style={{ display: "flex", gap: "8px" }}>
+                  <button
+                    className="btn-secondary btn-sm"
+                    onClick={() => navigate(`/applications/${app.id}/edit`)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="btn-danger btn-sm"
+                    onClick={() => handleDelete(app.id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
-        </tbody>
-
-      </table>
-
-      <br />
-
-      <button
-        onClick={() =>
-          setPage(page - 1)
-        }
-        disabled={page === 0}
-      >
-        Previous
-      </button>
-
-      <button
-        onClick={() =>
-          setPage(page + 1)
-        }
-      >
-        Next
-      </button>
-
+        <div className="pagination">
+          <button
+            className="btn-secondary"
+            onClick={() => setPage(page - 1)}
+            disabled={page === 0}
+          >
+            Previous
+          </button>
+          <span style={{ fontSize: "14px", color: "#6b7280" }}>Page {page + 1}</span>
+          <button
+            className="btn-secondary"
+            onClick={() => setPage(page + 1)}
+          >
+            Next
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

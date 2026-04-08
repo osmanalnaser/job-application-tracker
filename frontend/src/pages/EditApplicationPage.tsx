@@ -68,89 +68,118 @@ function EditApplicationPage() {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div>
-      <h1>Edit Application</h1>
-
-      <form onSubmit={handleSubmit}>
-        <div>
-          <input
-            type="text"
-            placeholder="Company"
-            value={company}
-            onChange={(e) => setCompany(e.target.value)}
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Position"
-            value={position}
-            onChange={(e) => setPosition(e.target.value)}
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Location"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Job URL"
-            value={jobUrl}
-            onChange={(e) => setJobUrl(e.target.value)}
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Salary Range"
-            value={salaryRange}
-            onChange={(e) => setSalaryRange(e.target.value)}
-          />
-        </div>
-        <div>
-          <select
-            value={status}
-            onChange={(e) => setStatus(e.target.value as ApplicationStatus)}
-          >
-            <option value="APPLIED">APPLIED</option>
-            <option value="INTERVIEW">INTERVIEW</option>
-            <option value="OFFER">OFFER</option>
-            <option value="REJECTED">REJECTED</option>
-          </select>
-        </div>
-        <div>
-          <input
-            type="date"
-            value={appliedDate}
-            onChange={(e) => setAppliedDate(e.target.value)}
-          />
-        </div>
-        <div>
-          <input
-            type="date"
-            placeholder="Reminder Date"
-            value={reminderDate}
-            onChange={(e) => setReminderDate(e.target.value)}
-          />
-        </div>
-        <div>
-          <textarea
-            placeholder="Notes"
-            value={notes}
-            onChange={(e) => setNotes(e.target.value)}
-          />
-        </div>
-
-        <button type="submit">Save</button>
-        <button type="button" onClick={() => navigate("/applications")}>
+    <div className="page">
+      <div className="navbar">
+        <h1>Edit Application</h1>
+        <button className="btn-secondary" onClick={() => navigate("/applications")}>
           Cancel
         </button>
-      </form>
+      </div>
+
+      <div className="card" style={{ maxWidth: "600px" }}>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>Company *</label>
+            <input
+              type="text"
+              placeholder="Company"
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Position *</label>
+            <input
+              type="text"
+              placeholder="Position"
+              value={position}
+              onChange={(e) => setPosition(e.target.value)}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Location</label>
+            <input
+              type="text"
+              placeholder="e.g. Munich, Remote"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Job URL</label>
+            <input
+              type="text"
+              placeholder="https://..."
+              value={jobUrl}
+              onChange={(e) => setJobUrl(e.target.value)}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Salary Range</label>
+            <input
+              type="text"
+              placeholder="e.g. 60.000 - 80.000 €"
+              value={salaryRange}
+              onChange={(e) => setSalaryRange(e.target.value)}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Status</label>
+            <select
+              value={status}
+              onChange={(e) => setStatus(e.target.value as ApplicationStatus)}
+            >
+              <option value="APPLIED">Applied</option>
+              <option value="INTERVIEW">Interview</option>
+              <option value="OFFER">Offer</option>
+              <option value="REJECTED">Rejected</option>
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label>Applied Date</label>
+            <input
+              type="date"
+              value={appliedDate}
+              onChange={(e) => setAppliedDate(e.target.value)}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Reminder Date</label>
+            <input
+              type="date"
+              value={reminderDate}
+              onChange={(e) => setReminderDate(e.target.value)}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Notes</label>
+            <textarea
+              placeholder="Any notes..."
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+            />
+          </div>
+
+          <div style={{ display: "flex", gap: "8px" }}>
+            <button type="submit" className="btn-primary">Save Changes</button>
+            <button
+              type="button"
+              className="btn-secondary"
+              onClick={() => navigate("/applications")}
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
