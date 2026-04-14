@@ -2,6 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import axiosInstance from "../api/axiosInstance";
+
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -14,13 +16,10 @@ function LoginPage() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "https://job-application-tracker-31lr.onrender.com/api",
-        {
-          email,
-          password,
-        }
-      );
+      const response = await axiosInstance.post("/auth/login", {
+        email,
+        password,
+      });
 
       console.log("LOGIN RESPONSE:", response.data);
 

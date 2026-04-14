@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 import { useNavigate, Link } from "react-router-dom";
 
 function RegisterPage() {
@@ -15,7 +16,7 @@ function RegisterPage() {
     setError("");
 
     try {
-      await axios.post("https://job-application-tracker-31lr.onrender.com/api", {
+      await axiosInstance.post("/auth/register", {
         name,
         email,
         password,
