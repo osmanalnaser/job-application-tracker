@@ -15,7 +15,7 @@ function RegisterPage() {
     setError("");
 
     try {
-      await axios.post("http://localhost:8080/api/auth/register", {
+      await axios.post("https://job-application-tracker-31lr.onrender.com/api", {
         name,
         email,
         password,
