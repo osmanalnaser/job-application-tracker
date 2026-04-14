@@ -31,4 +31,9 @@ public class AuthController {
     public AuthUserResponse getCurrentUser(Authentication authentication) {
         return authService.getCurrentUser(authentication.getName());
     }
+
+    @GetMapping("/health")
+    public String health() {
+        return "OK";
+    }
 }
