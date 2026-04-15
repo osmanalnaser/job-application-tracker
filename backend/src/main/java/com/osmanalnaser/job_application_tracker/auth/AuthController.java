@@ -22,10 +22,10 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public LoginResponse login(@Valid @RequestBody LoginRequest request) {
-
-        return authService.login(request);
+    public String login() {
+        return "LOGIN WORKS";
     }
+
 
     @GetMapping("/me")
     public AuthUserResponse getCurrentUser(Authentication authentication) {
